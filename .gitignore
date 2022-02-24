@@ -4,3 +4,6 @@
 .\bin\*
 bin\*
 bin/*
+*.dll
+*.pdb
+*.cache
