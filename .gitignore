@@ -3,4 +3,4 @@
 ./obj/*
 .\bin\*
 bin\*
-bin/Debug/net6.0/ref/YuDian.dll
+bin/*
