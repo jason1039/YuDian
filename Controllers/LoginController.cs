@@ -36,14 +36,9 @@ public class LoginController : Controller
             Stream responseStream = await response.Content.ReadAsStreamAsync();
             UserData userData = await JsonSerializer.DeserializeAsync<UserData>(responseStream);
             HttpContext.Session.SetString("UserEmail", userData.email);
-            // _logger.LogInformation("UserData: {}", userData);
-            // _logger.LogInformation("Session Time: {Time}", HttpContext.Session.Get<DateTime>(SessionKeyTime));
-            // Session["UserData"] = userData;
             return Redirect(Url.Action("Index", "Home"));
         }
         else return Redirect(Url.Action("Error", controller: "Login"));
-
-        // return View();
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
