@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "THQh7SxgiQ4AIQZ/jhIctZaYNL4fMvuhB5A7mydgqulDXjuuQz9V0I2U55ZdcbRsWj+NlRsWnXMrK0GQrILASQ==",
+  "dgSpecHash": "LP6RqiKh+A3kl4lvxxxBxCpv7KgNGxswKm+cSkxpTYXNbQ4m7E/RElbsbvTjn6gdrQd1TczeQXsZBR0W5sc6Tg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\000585\\Documents\\YuDian\\YuDian.csproj",
+  "projectFilePath": "E:\\GitHub\\YuDian\\YuDian.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\000585\\.nuget\\packages\\microsoft.aspnetcore.authentication.google\\6.0.4\\microsoft.aspnetcore.authentication.google.6.0.4.nupkg.sha512"
+    "C:\\Users\\jason\\.nuget\\packages\\microsoft.aspnetcore.authentication.google\\6.0.4\\microsoft.aspnetcore.authentication.google.6.0.4.nupkg.sha512"
   ],
   "logs": []
 }
