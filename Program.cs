@@ -5,20 +5,15 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme);
-builder.Services.AddAuthentication().AddGoogle(googleOptions =>
-{
-    googleOptions.ClientId = "42481349999-juhbh05nq50sm33tbj3daadamqetvds7.apps.googleusercontent.com";
-    googleOptions.ClientSecret = "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";
-}).AddCookie(options =>
-{
-    options.LoginPath = new PathString("/Login/Index");
-});
-builder.Services.AddRazorPages(options =>
-{
+builder.Services.AddDistributedMemoryCache();
 
-});
-
+builder.Services.AddSession(options =>
+            {
+                options.Cookie.Name = ".AdventureWorks.Session";
+                options.IdleTimeout = TimeSpan.FromSeconds(2000);//设置session的过期时间
+                options.Cookie.HttpOnly = true;//设置在浏览器不能通过js获得该cookie的值 
+            });
+builder.Services.AddHttpClient();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -31,7 +26,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
+app.UseSession();
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();

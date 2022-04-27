@@ -16303,6 +16303,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "e:\\GitHub\\YuDian\\Views\\Shared\\LoginPartial.cshtml",
+      "TargetPath": "Views\\Shared\\LoginPartial.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "e:\\GitHub\\YuDian\\Views\\ERP\\Index.cshtml",
       "TargetPath": "Views\\ERP\\Index.cshtml",
       "FileKind": "mvc"
@@ -16335,6 +16340,11 @@
     {
       "FilePath": "e:\\GitHub\\YuDian\\Views\\Home\\Index.cshtml",
       "TargetPath": "Views\\Home\\Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "e:\\GitHub\\YuDian\\Views\\Login\\Index.cshtml",
+      "TargetPath": "Views\\Login\\Index.cshtml",
       "FileKind": "mvc"
     }
   ],

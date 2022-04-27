@@ -15,6 +15,10 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
+        if (HttpContext.Session.GetString("UserEmail") != default)
+        {
+            ViewData.Add("userEmail", HttpContext.Session.GetString("UserEmail"));
+        }
         return View();
     }
 
