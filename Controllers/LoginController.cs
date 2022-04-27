@@ -20,9 +20,10 @@ public class LoginController : Controller
         return new ChallengeResult(provider, new AuthenticationProperties { RedirectUri = redirectUrl ?? "/" });
     }
 
-    public IActionResult Callback(string returnUrl = null, string remoteError = null)
+    public IActionResult Index(string returnUrl = null, string remoteError = null)
     {
         var claims = HttpContext.User;
+        Console.WriteLine(claims.Identity);
         // 略...後續流程可直接參考官方範例，或自訂
         return Ok();
     }
