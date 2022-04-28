@@ -18,7 +18,7 @@ public class HomeController : Controller
     {
         if (HttpContext.Session.GetString("UserData") != default)
         {
-            ViewBag.UserData = SessionFunc.ToObj<UserData>(HttpContext.Session.GetString("UserData"));
+            ViewBag.UserData = SessionFunc.ToObj<UserData>(HttpContext.Session.GetString("UserData") ?? "");
         }
         return View();
     }

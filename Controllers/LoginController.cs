@@ -36,9 +36,10 @@ public class LoginController : Controller
         {
             Stream responseStream = await response.Content.ReadAsStreamAsync();
             UserData userData = await JsonSerializer.DeserializeAsync<UserData>(responseStream);
+            Microsoft.AspNetCore.Authorization.AuthorizeAttribute auth = new();
             ClaimsIdentity identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
 
-
+            identity.AddClaim(new Claim(ClaimTypes.Name, userData.name));
             identity.AddClaim(new Claim(ClaimTypes.Sid, userData.email));
             identity.AddClaim(new Claim(ClaimTypes.Role, "admin"));
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity));
@@ -46,6 +47,11 @@ public class LoginController : Controller
             return Redirect(Url.Action("Index", "Home"));
         }
         else return Redirect(Url.Action("Error", controller: "Login"));
+    }
+    public async Task<IActionResult> Logout()
+    {
+        await HttpContext.SignOutAsync();
+        return Redirect(Url.Action("Index", "Home"));
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
