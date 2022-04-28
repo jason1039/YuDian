@@ -38,10 +38,10 @@ public class LoginController : Controller
             UserData userData = await JsonSerializer.DeserializeAsync<UserData>(responseStream);
             Microsoft.AspNetCore.Authorization.AuthorizeAttribute auth = new();
             ClaimsIdentity identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
-
             identity.AddClaim(new Claim(ClaimTypes.Name, userData.name));
             identity.AddClaim(new Claim(ClaimTypes.Sid, userData.email));
-            identity.AddClaim(new Claim(ClaimTypes.Role, "admin"));
+            // identity.AddClaim(new Claim(ClaimTypes.Role, "admin"));
+            identity.AddClaim(new Claim(ClaimTypes.Authentication, "RequireClaim"));
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity));
             HttpContext.Session.SetString("UserData", SessionFunc.ToJson(userData));
             return Redirect(Url.Action("Index", "Home"));

@@ -20,7 +20,7 @@ builder.Services.AddAuthorization(options =>
 }).AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
 {
     options.LoginPath = new PathString("/ERP/Index");
-
+    options.AccessDeniedPath = new PathString("/Home/Index");
 });
 var app = builder.Build();
 
