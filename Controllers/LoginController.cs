@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using YuDian.Models;
 using Microsoft.AspNetCore.Authentication;
 using System.Text.Json;
-using System.Runtime.Serialization.Formatters.Binary;
+using YuDian.FeaturesFunc;
 
 namespace YuDian.Controllers;
 
@@ -11,7 +11,6 @@ public class LoginController : Controller
 {
     private readonly IHttpClientFactory _httpClientFactory;
     private readonly ILogger<LoginController> _logger;
-
     public LoginController(ILogger<LoginController> logger, IHttpClientFactory httpClientFactory)
     {
         _logger = logger;
@@ -35,7 +34,7 @@ public class LoginController : Controller
         {
             Stream responseStream = await response.Content.ReadAsStreamAsync();
             UserData userData = await JsonSerializer.DeserializeAsync<UserData>(responseStream);
-            HttpContext.Session.SetString("UserEmail", userData.email);
+            HttpContext.Session.SetString("UserData", SessionFunc.ToJson(userData));
             return Redirect(Url.Action("Index", "Home"));
         }
         else return Redirect(Url.Action("Error", controller: "Login"));

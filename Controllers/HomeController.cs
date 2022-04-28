@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using YuDian.Models;
+using YuDian.FeaturesFunc;
 
 namespace YuDian.Controllers;
 
@@ -15,9 +16,9 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        if (HttpContext.Session.GetString("UserEmail") != default)
+        if (HttpContext.Session.GetString("UserData") != default)
         {
-            ViewData.Add("userEmail", HttpContext.Session.GetString("UserEmail"));
+            ViewBag.UserData = SessionFunc.ToObj<UserData>(HttpContext.Session.GetString("UserData"));
         }
         return View();
     }

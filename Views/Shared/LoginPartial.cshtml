@@ -1,13 +1,17 @@
-@if (ViewData["userEmail"] != null)
-{
-    <a>@ViewData["userEmail"]</a>
-}
-else
-{
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
-    @* <script src="~/js/googleAuth.js"></script> *@
-    <div id="g_id_onload" data-client_id="42481349999-juhbh05nq50sm33tbj3daadamqetvds7.apps.googleusercontent.com"
-    data-ux_mode="redirect" data-login_uri="Login/Index">
-    </div>
-    <div class="g_id_signin" data-type="standard"></div>
-}
+<ul class="navbar-nav">
+    @if (ViewBag.UserData != null)
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark">@ViewBag.UserData.email</a>
+        </li>
+    }
+    else
+    {
+        <script src="https://accounts.google.com/gsi/client" async defer></script>
+        <li class="nav-item">
+            <div id="g_id_onload" data-client_id="42481349999-juhbh05nq50sm33tbj3daadamqetvds7.apps.googleusercontent.com"
+            data-ux_mode="redirect" data-login_uri="Login/Index"></div>
+            <div class="g_id_signin" data-type="standard"></div>
+        </li>
+    }
+</ul>
