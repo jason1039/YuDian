@@ -4,6 +4,8 @@ using YuDian.Models;
 using Microsoft.AspNetCore.Authentication;
 using System.Text.Json;
 using YuDian.FeaturesFunc;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Security.Claims;
 
 namespace YuDian.Controllers;
 
@@ -34,6 +36,12 @@ public class LoginController : Controller
         {
             Stream responseStream = await response.Content.ReadAsStreamAsync();
             UserData userData = await JsonSerializer.DeserializeAsync<UserData>(responseStream);
+            ClaimsIdentity identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
+
+
+            identity.AddClaim(new Claim(ClaimTypes.Sid, userData.email));
+            identity.AddClaim(new Claim(ClaimTypes.Role, "admin"));
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity));
             HttpContext.Session.SetString("UserData", SessionFunc.ToJson(userData));
             return Redirect(Url.Action("Index", "Home"));
         }

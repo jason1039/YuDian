@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication.Google;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,13 +13,20 @@ builder.Services.AddSession(options =>
                 options.Cookie.HttpOnly = true;//设置在浏览器不能通过js获得该cookie的值 
             });
 builder.Services.AddHttpClient();
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("RequireClaim", policy =>
+           policy.RequireRole("admin"));
+}).AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
+{
+    options.LoginPath = new PathString("/ERP/Index");
+
+});
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
