@@ -2,7 +2,6 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using YuDian.Models;
 using Microsoft.AspNetCore.Authentication;
-using System.Text.Json;
 using YuDian.FeaturesFunc;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Security.Claims;
@@ -27,23 +26,14 @@ public class LoginController : Controller
 
     public async Task<IActionResult> Index([FromForm] GoogleData GoogleData)
     {
-        HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, $"https://oauth2.googleapis.com/tokeninfo?id_token={GoogleData.credential}");
-        request.Headers.Add("Accept", "application/vnd.github.v3+json");
-        var client = _httpClientFactory.CreateClient();
-
-        var response = await client.SendAsync(request);
-        if (response.IsSuccessStatusCode)
+        Interact interact = new(_httpClientFactory);
+        interact.Start($"https://oauth2.googleapis.com/tokeninfo?id_token={GoogleData.credential}");
+        if (interact.GetIsSuccessStatusCode())
         {
-            Stream responseStream = await response.Content.ReadAsStreamAsync();
-            UserData userData = await JsonSerializer.DeserializeAsync<UserData>(responseStream);
-            Microsoft.AspNetCore.Authorization.AuthorizeAttribute auth = new();
-            ClaimsIdentity identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
-            identity.AddClaim(new Claim(ClaimTypes.Name, userData.name));
-            identity.AddClaim(new Claim(ClaimTypes.Sid, userData.email));
-            // identity.AddClaim(new Claim(ClaimTypes.Role, "admin"));
-            identity.AddClaim(new Claim(ClaimTypes.Authentication, "RequireClaim"));
-            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity));
-            HttpContext.Session.SetString("UserData", SessionFunc.ToJson(userData));
+            UserData userData = await interact.GetResult<UserData>();
+
+            List<Claim> Cliams = new();
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, CP.Create(Cliams));
             return Redirect(Url.Action("Index", "Home"));
         }
         else return Redirect(Url.Action("Error", controller: "Login"));
