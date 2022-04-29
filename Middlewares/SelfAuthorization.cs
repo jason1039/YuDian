@@ -1,6 +1,6 @@
 using System.Globalization;
 
-namespace Middleware.Authorization;
+namespace YuDian.Middleware;
 
 public class AuthorizationMiddleware
 {
@@ -21,7 +21,7 @@ public class AuthorizationMiddleware
             CultureInfo.CurrentCulture = culture;
             CultureInfo.CurrentUICulture = culture;
         }
-
+        Console.WriteLine("Test");
         // Call the next delegate/middleware in the pipeline.
         await _next(context);
     }
@@ -29,7 +29,7 @@ public class AuthorizationMiddleware
 
 public static class AuthorizationMiddlewareExtensions
 {
-    public static IApplicationBuilder UseAuthorization(this IApplicationBuilder builder)
+    public static IApplicationBuilder UseSelfAuthorization(this IApplicationBuilder builder)
     {
         return builder.UseMiddleware<AuthorizationMiddleware>();
     }

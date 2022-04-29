@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace YuDian.Controllers;
-[Authorize(Policy = "RequireClaim")]
+// [Authorize(Policy = "RequireClaim")]
 public class ERPController : Controller
 {
     private readonly ILogger<ERPController> _logger;

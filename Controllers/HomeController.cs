@@ -2,13 +2,16 @@
 using Microsoft.AspNetCore.Mvc;
 using YuDian.Models;
 using YuDian.FeaturesFunc;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace YuDian.Controllers;
-
+[AllowAnonymous]
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
-
     public HomeController(ILogger<HomeController> logger)
     {
         _logger = logger;

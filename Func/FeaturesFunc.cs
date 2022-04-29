@@ -83,4 +83,52 @@ namespace YuDian.FeaturesFunc
             }
         }
     }
+    public static class Auth
+    {
+        public static void AddPolicy(ref Microsoft.AspNetCore.Authorization.AuthorizationOptions options)
+        {
+            string[] FilesPath = GetFilesList();
+            for (int i = 0; i < FilesPath.Length; i++)
+            {
+                string Controller = ReplacePath(FilesPath[i]);
+                string[] Controlers = GetControls(FilesPath[i]);
+                foreach (string control in Controlers)
+                {
+                    string authPolicy = $"{Controller}.{control}";
+                    Console.WriteLine(authPolicy);
+                    options.AddPolicy(authPolicy, policy => policy.RequireRole(authPolicy));
+                }
+            }
+        }
+        private static string ReplacePath(string Path)
+        {
+            System.Text.RegularExpressions.Regex reg = new(@"\.\/Controllers\/");
+            Path = reg.Replace(Path, "");
+            reg = new(@"Controller.cs");
+            Path = reg.Replace(Path, "");
+            return Path;
+        }
+        private static string[] GetFilesList()
+        {
+            return System.IO.Directory.GetFiles("./Controllers/");
+        }
+        private static string[] GetControls(string path)
+        {
+            List<string> result = new();
+            foreach (string line in System.IO.File.ReadLines(path))
+            {
+                System.Text.RegularExpressions.Regex reg = new(@"public\sIActionResult\s[A-Za-z_]*\(\)");
+                if (reg.IsMatch(line))
+                {
+
+                    reg = new(@"public\sIActionResult\s|\s*");
+                    string result_str = reg.Replace(line, "");
+                    reg = new(@"\(\)");
+                    result_str = reg.Replace(result_str, "");
+                    result.Add(result_str);
+                }
+            }
+            return result.ToArray();
+        }
+    }
 }

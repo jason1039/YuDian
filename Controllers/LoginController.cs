@@ -33,6 +33,11 @@ public class LoginController : Controller
             UserData userData = await interact.GetResult<UserData>();
 
             List<Claim> Cliams = new();
+            Cliams.Add(new Claim(ClaimTypes.NameIdentifier, userData.email));
+            Cliams.Add(new Claim(ClaimTypes.Sid, userData.email));
+            Cliams.Add(new Claim(ClaimTypes.Name, userData.email));
+            // Cliams.Add(new Claim(ClaimTypes.Role, "ERP.Index"));
+            Cliams.Add(new Claim(ClaimTypes.Role, "RequireClaim"));
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, CP.Create(Cliams));
             return Redirect(Url.Action("Index", "Home"));
         }

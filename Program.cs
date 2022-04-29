@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
+// using YuDian.FeaturesFunc;
+// using YuDian.Middleware;
 
-var builder = WebApplication.CreateBuilder(args);
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -15,6 +17,7 @@ builder.Services.AddSession(options =>
 builder.Services.AddHttpClient();
 builder.Services.AddAuthorization(options =>
 {
+    // Auth.AddPolicy(ref options);
     options.AddPolicy("RequireClaim", policy =>
            policy.RequireRole("admin"));
 }).AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
@@ -36,9 +39,8 @@ app.UseSession();
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
+// app.UseSelfAuthorization();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+app.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
