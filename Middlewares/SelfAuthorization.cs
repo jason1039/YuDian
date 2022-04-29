@@ -1,6 +1,6 @@
-using System.Globalization;
-
+using System.Security.Claims;
 namespace YuDian.Middleware;
+using YuDian.FeaturesFunc;
 
 public class AuthorizationMiddleware
 {
@@ -13,16 +13,6 @@ public class AuthorizationMiddleware
 
     public async Task InvokeAsync(HttpContext context)
     {
-        var cultureQuery = context.Request.Query["culture"];
-        if (!string.IsNullOrWhiteSpace(cultureQuery))
-        {
-            var culture = new CultureInfo(cultureQuery);
-
-            CultureInfo.CurrentCulture = culture;
-            CultureInfo.CurrentUICulture = culture;
-        }
-        Console.WriteLine("Test");
-        // Call the next delegate/middleware in the pipeline.
         await _next(context);
     }
 }

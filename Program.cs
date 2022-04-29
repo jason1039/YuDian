@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
-// using YuDian.FeaturesFunc;
-// using YuDian.Middleware;
+using YuDian.FeaturesFunc;
+using YuDian.Middleware;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -11,16 +11,17 @@ builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
             {
                 options.Cookie.Name = ".AdventureWorks.Session";
-                options.IdleTimeout = TimeSpan.FromSeconds(2000);//设置session的过期时间
+                options.IdleTimeout = TimeSpan.FromSeconds(10);//设置session的过期时间
                 options.Cookie.HttpOnly = true;//设置在浏览器不能通过js获得该cookie的值 
             });
 builder.Services.AddHttpClient();
 builder.Services.AddAuthorization(options =>
 {
-    // Auth.AddPolicy(ref options);
+    Auth.AddPolicy(ref options);
     options.AddPolicy("RequireClaim", policy =>
            policy.RequireRole("admin"));
-}).AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
+})
+.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
 {
     options.LoginPath = new PathString("/ERP/Index");
     options.AccessDeniedPath = new PathString("/Home/Index");
@@ -39,7 +40,7 @@ app.UseSession();
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
-// app.UseSelfAuthorization();
+app.UseSelfAuthorization();
 
 app.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Index}/{id?}");
 

@@ -95,7 +95,6 @@ namespace YuDian.FeaturesFunc
                 foreach (string control in Controlers)
                 {
                     string authPolicy = $"{Controller}.{control}";
-                    Console.WriteLine(authPolicy);
                     options.AddPolicy(authPolicy, policy => policy.RequireRole(authPolicy));
                 }
             }
@@ -117,13 +116,19 @@ namespace YuDian.FeaturesFunc
             List<string> result = new();
             foreach (string line in System.IO.File.ReadLines(path))
             {
+                bool res = false;
                 System.Text.RegularExpressions.Regex reg = new(@"public\sIActionResult\s[A-Za-z_]*\(\)");
-                if (reg.IsMatch(line))
+                res = res || reg.IsMatch(line);
+                reg = new(@"public\sasync\sTask<IActionResult>\s[A-Za-z_]*\([^\)]*\)");
+                res = res || reg.IsMatch(line);
+                if (res)
                 {
 
                     reg = new(@"public\sIActionResult\s|\s*");
                     string result_str = reg.Replace(line, "");
-                    reg = new(@"\(\)");
+                    reg = new(@"publicasyncTask<IActionResult>");
+                    result_str = reg.Replace(result_str, "");
+                    reg = new(@"\([^\)]*\)");
                     result_str = reg.Replace(result_str, "");
                     result.Add(result_str);
                 }

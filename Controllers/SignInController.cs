@@ -5,25 +5,20 @@ using Microsoft.AspNetCore.Authentication;
 using YuDian.FeaturesFunc;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace YuDian.Controllers;
 
-public class LoginController : Controller
+public class SignInController : Controller
 {
     private readonly IHttpClientFactory _httpClientFactory;
-    private readonly ILogger<LoginController> _logger;
-    public LoginController(ILogger<LoginController> logger, IHttpClientFactory httpClientFactory)
+    private readonly ILogger<SignInController> _logger;
+    public SignInController(ILogger<SignInController> logger, IHttpClientFactory httpClientFactory)
     {
         _logger = logger;
         _httpClientFactory = httpClientFactory;
     }
-
-    public IActionResult SignInGoogle(string provider, string returnUrl = null)
-    {
-        var redirectUrl = Url.Action("Callback", controller: "Login", values: new { returnUrl });
-        return new ChallengeResult(provider, new AuthenticationProperties { RedirectUri = redirectUrl ?? "/" });
-    }
-
+    [AllowAnonymous]
     public async Task<IActionResult> Index([FromForm] GoogleData GoogleData)
     {
         Interact interact = new(_httpClientFactory);
@@ -35,14 +30,14 @@ public class LoginController : Controller
             List<Claim> Cliams = new();
             Cliams.Add(new Claim(ClaimTypes.NameIdentifier, userData.email));
             Cliams.Add(new Claim(ClaimTypes.Sid, userData.email));
-            Cliams.Add(new Claim(ClaimTypes.Name, userData.email));
-            // Cliams.Add(new Claim(ClaimTypes.Role, "ERP.Index"));
-            Cliams.Add(new Claim(ClaimTypes.Role, "RequireClaim"));
+            Cliams.Add(new Claim(ClaimTypes.Name, userData.name));
+            Cliams.Add(new Claim(ClaimTypes.Role, "Login.Logout"));
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, CP.Create(Cliams));
             return Redirect(Url.Action("Index", "Home"));
         }
         else return Redirect(Url.Action("Error", controller: "Login"));
     }
+    [Authorize(Policy = "Login.Logout")]
     public async Task<IActionResult> Logout()
     {
         await HttpContext.SignOutAsync();
