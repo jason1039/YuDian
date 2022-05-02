@@ -1,0 +1,24 @@
+@using Microsoft.AspNetCore.Http;
+@using YuDian.FeaturesFunc;
+@inject IHttpContextAccessor HttpContextAccessor
+<ul class="navbar-nav flex-grow-1">
+    @if (HttpContextAccessor.HttpContext.Session.GetString("PageList") != null)
+    {
+        foreach (var title in
+        SessionFunc.ToObj<List<PageListTitle>>(HttpContextAccessor.HttpContext.Session.GetString("PageList")))
+        {
+            <li class="nav-item dropdown">
+                <a class="nav-link text-dark dropdown-toggle" href="#" role="button" id=@title.TitleSeq@title.TitleName
+            data-bs-toggle="dropdown" aria-expanded="false">@title.TitleName</a>
+                <ul class="dropdown-menu" aria-labelledby="@title.TitleSeq@title.TitleName">
+                    @foreach (var item in title.PageListSubs)
+                    {
+                        <li><a class="dropdown-item" asp-area="" asp-controller=@item.MainController
+                    asp-action=@item.MainAction>@item.FeatureName</a>
+                        </li>
+                    }
+                </ul>
+            </li>
+        }
+    }
+</ul>

@@ -1,6 +1,8 @@
 using System.Text.Json;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
+using YuDian.Models;
 
 namespace YuDian.FeaturesFunc
 {
@@ -114,26 +116,23 @@ namespace YuDian.FeaturesFunc
         private static string[] GetControls(string path)
         {
             List<string> result = new();
-            foreach (string line in System.IO.File.ReadLines(path))
+            System.Text.RegularExpressions.Regex _reg = new(@"public\s(async\sTask<)?IActionResult(>)?\s[A-Za-z_]*\([^\)]*\)");
+            string FileContent = System.IO.File.ReadAllText(path);
+            System.Text.RegularExpressions.MatchCollection Lines = _reg.Matches(FileContent);
+            foreach (var i in Lines)
             {
-                bool res = false;
-                System.Text.RegularExpressions.Regex reg = new(@"public\sIActionResult\s[A-Za-z_]*\(\)");
-                res = res || reg.IsMatch(line);
-                reg = new(@"public\sasync\sTask<IActionResult>\s[A-Za-z_]*\([^\)]*\)");
-                res = res || reg.IsMatch(line);
-                if (res)
-                {
-
-                    reg = new(@"public\sIActionResult\s|\s*");
-                    string result_str = reg.Replace(line, "");
-                    reg = new(@"publicasyncTask<IActionResult>");
-                    result_str = reg.Replace(result_str, "");
-                    reg = new(@"\([^\)]*\)");
-                    result_str = reg.Replace(result_str, "");
-                    result.Add(result_str);
-                }
+                System.Text.RegularExpressions.Regex __reg = new(@"(public\s)(async\sTask<)?(IActionResult)(>)?(\s)([A-Za-z_]*)(\([^\)]*\))");
+                string pattern = @"(public\s)(async\sTask<)?(IActionResult)(>)?(\s)([A-Za-z_]*)(\([^\)]*\))";
+                string replacement = "$6";
+                string result_str = System.Text.RegularExpressions.Regex.Replace(i.ToString(), pattern, replacement);
+                result.Add(result_str);
             }
             return result.ToArray();
         }
+    }
+    public class ApplicationUser : IdentityUser
+    {
+        [PersonalData]
+        public List<PageListTitle> Titles { get; set; }
     }
 }

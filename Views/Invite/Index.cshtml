@@ -1,0 +1,26 @@
+@{
+    ViewData["Title"] = "邀請狀態";
+}
+<form>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">受邀人姓名</th>
+                <th scope="col">受邀人信箱</th>
+                <th scope="col">邀請狀態</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var row in ViewBag.InviteState)
+            {
+                <tr>
+                    <th scope="row">@row.Seq</th>
+                    <td>@row.InviteName</td>
+                    <td>@row.InviteEmail</td>
+                    <td>@(row.Completed=="0"?"未註冊":"已註冊")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</form>

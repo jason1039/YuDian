@@ -1,13 +1,16 @@
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using YuDian.FeaturesFunc;
 using YuDian.Middleware;
+using YuDian.Models;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddDistributedMemoryCache();
-
+builder.Services.AddDbContext<MainContext>(options =>
+    options.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=YuDian;Trusted_Connection=True;"));
 builder.Services.AddSession(options =>
             {
                 options.Cookie.Name = ".AdventureWorks.Session";
@@ -23,9 +26,10 @@ builder.Services.AddAuthorization(options =>
 })
 .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
 {
-    options.LoginPath = new PathString("/ERP/Index");
+    options.LoginPath = new PathString("/SignIn/Index");
     options.AccessDeniedPath = new PathString("/Home/Index");
 });
+builder.Services.AddHttpContextAccessor();
 var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())

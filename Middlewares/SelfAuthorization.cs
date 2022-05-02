@@ -1,6 +1,7 @@
 using System.Security.Claims;
-namespace YuDian.Middleware;
+using YuDian.Models;
 using YuDian.FeaturesFunc;
+namespace YuDian.Middleware;
 
 public class AuthorizationMiddleware
 {
@@ -11,8 +12,13 @@ public class AuthorizationMiddleware
         _next = next;
     }
 
-    public async Task InvokeAsync(HttpContext context)
+    public async Task InvokeAsync(HttpContext context, MainContext _dbContext)
     {
+        string Email = context.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        if (Email != null && context.Session.GetString("PageList") != string.Empty)
+        {
+            context.Session.SetString("PageList", SessionFunc.ToJson(_dbContext.sp_GetPageList(Email)));
+        }
         await _next(context);
     }
 }

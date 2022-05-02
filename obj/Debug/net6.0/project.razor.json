@@ -16303,6 +16303,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "e:\\GitHub\\YuDian\\Views\\Shared\\PageListPartial.cshtml",
+      "TargetPath": "Views\\Shared\\PageListPartial.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "e:\\GitHub\\YuDian\\Views\\Shared\\LoginPartial.cshtml",
       "TargetPath": "Views\\Shared\\LoginPartial.cshtml",
       "FileKind": "mvc"
@@ -16315,6 +16320,11 @@
     {
       "FilePath": "e:\\GitHub\\YuDian\\Views\\_ViewStart.cshtml",
       "TargetPath": "Views\\_ViewStart.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "e:\\GitHub\\YuDian\\Views\\Invite\\Index.cshtml",
+      "TargetPath": "Views\\Invite\\Index.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -16343,8 +16353,8 @@
       "FileKind": "mvc"
     },
     {
-      "FilePath": "e:\\GitHub\\YuDian\\Views\\Login\\Index.cshtml",
-      "TargetPath": "Views\\Login\\Index.cshtml",
+      "FilePath": "e:\\GitHub\\YuDian\\Views\\Invite\\Add.cshtml",
+      "TargetPath": "Views\\Invite\\Add.cshtml",
       "FileKind": "mvc"
     }
   ],

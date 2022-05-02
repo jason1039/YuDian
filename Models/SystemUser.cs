@@ -15,9 +15,7 @@ public class SystemUser
     [DataType(DataType.EmailAddress)]
     public string SystemUserEmail { get; set; }
     public string SystemUserName { get; set; }
-    [StringLength(1)]
-    [RegularExpression("^[M|W]$")]
-    public string SystemUserSex { get; set; }
+    public bool SystemUserSex { get; set; }
     [StringLength(10)]
     [RegularExpression("^[0-9]{9,10}$")]
     public string SystemUserNumber { get; set; }
@@ -27,8 +25,4 @@ public class SystemUser
     [StringLength(1)]
     [RegularExpression("^[U|S|D]$")]
     public string AccountState { get; set; }
-    [Required]
-    [StringLength(10)]
-    [RegularExpression("^[A-Z][0-9]{9}$")]
-    public string Creator { get; set; }
 }

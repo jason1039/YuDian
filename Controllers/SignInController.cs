@@ -6,6 +6,7 @@ using YuDian.FeaturesFunc;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
+using System.Text;
 
 namespace YuDian.Controllers;
 
@@ -13,10 +14,12 @@ public class SignInController : Controller
 {
     private readonly IHttpClientFactory _httpClientFactory;
     private readonly ILogger<SignInController> _logger;
-    public SignInController(ILogger<SignInController> logger, IHttpClientFactory httpClientFactory)
+    private readonly MainContext _context;
+    public SignInController(ILogger<SignInController> logger, IHttpClientFactory httpClientFactory, MainContext context)
     {
         _logger = logger;
         _httpClientFactory = httpClientFactory;
+        _context = context;
     }
     [AllowAnonymous]
     public async Task<IActionResult> Index([FromForm] GoogleData GoogleData)
@@ -26,22 +29,49 @@ public class SignInController : Controller
         if (interact.GetIsSuccessStatusCode())
         {
             UserData userData = await interact.GetResult<UserData>();
+            if (!_context.sp_HasSystemUser(userData.email))
+            {
+                HttpContext.Session.SetString("SignUpData", SessionFunc.ToJson(userData));
+                return Redirect(Url.Action("SignUp", "SignIn"));
+            }
+
+            SystemUser user = _context.sp_GetSystemUser(userData.email);
+            List<Roles> Roles = _context.sp_GetRoles(userData.email);
 
             List<Claim> Cliams = new();
-            Cliams.Add(new Claim(ClaimTypes.NameIdentifier, userData.email));
-            Cliams.Add(new Claim(ClaimTypes.Sid, userData.email));
-            Cliams.Add(new Claim(ClaimTypes.Name, userData.name));
-            Cliams.Add(new Claim(ClaimTypes.Role, "Login.Logout"));
+            Cliams.Add(new Claim(ClaimTypes.NameIdentifier, user.SystemUserEmail));
+            Cliams.Add(new Claim(ClaimTypes.Sid, user.SystemUserID));
+            Cliams.Add(new Claim(ClaimTypes.Name, user.SystemUserName));
+            Cliams.Add(new Claim(ClaimTypes.Email, user.SystemUserEmail));
+            Cliams.Add(new Claim(ClaimTypes.Role, "SignIn.Logout"));
+            foreach (var role in Roles)
+            {
+                Cliams.Add(new Claim(ClaimTypes.Role, role.RoleStr));
+            }
+            // HttpContext.Session.SetString("PageList", SessionFunc.ToJson(_context.sp_GetPageList(userData.email)));
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, CP.Create(Cliams));
             return Redirect(Url.Action("Index", "Home"));
         }
-        else return Redirect(Url.Action("Error", controller: "Login"));
+        else return Redirect(Url.Action("Error", controller: "SignIn"));
     }
-    [Authorize(Policy = "Login.Logout")]
+    [Authorize(Policy = "SignIn.Logout")]
     public async Task<IActionResult> Logout()
     {
         await HttpContext.SignOutAsync();
+        HttpContext.Session.Clear();
+        ViewBag.PageList = null;
         return Redirect(Url.Action("Index", "Home"));
+    }
+    [AllowAnonymous]
+    [HttpGet]
+    public async Task<IActionResult> SignUp()
+    {
+        if (HttpContext.Session.GetString("SignUpData") != string.Empty)
+        {
+            UserData userData = SessionFunc.ToObj<UserData>(HttpContext.Session.GetString("SignUpData"));
+            return View();
+        }
+        return Redirect(Url.Action("Error", controller: "SignIn"));
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
