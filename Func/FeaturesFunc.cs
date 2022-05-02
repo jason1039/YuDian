@@ -97,6 +97,7 @@ namespace YuDian.FeaturesFunc
                 foreach (string control in Controlers)
                 {
                     string authPolicy = $"{Controller}.{control}";
+                    Console.WriteLine(authPolicy);
                     options.AddPolicy(authPolicy, policy => policy.RequireRole(authPolicy));
                 }
             }
@@ -130,9 +131,38 @@ namespace YuDian.FeaturesFunc
             return result.ToArray();
         }
     }
-    public class ApplicationUser : IdentityUser
+    public static class SignUp
     {
-        [PersonalData]
-        public List<PageListTitle> Titles { get; set; }
+        public static bool CheckIdentity(string Identity)
+        {
+            if (Identity.Length != 10) return false;
+            System.Text.RegularExpressions.Regex reg = new(@"^[A-Z][1|2][0-9]{8}$");
+            if (!reg.IsMatch(Identity)) return false;
+            int[] compareTable = { 10, 11, 12, 13, 14, 15, 16, 17, 34, 18, 19, 20, 21, 22, 35, 23, 24, 25, 26, 27, 28, 29, 32, 30, 31, 33 };
+            int temp = 0;
+            temp += (compareTable[Convert.ToInt32(Identity[0]) - 65] / 10);
+            temp += (compareTable[Convert.ToInt32(Identity[0]) - 65] % 10) * 9;
+            for (int i = 1; i < 9; i++)
+            {
+                temp += (9 - i) * int.Parse(Identity[i].ToString());
+            }
+            return (temp += int.Parse(Identity[9].ToString())) % 10 == 0;
+        }
+        public static bool GetSex(string Identity)
+        {
+            return Identity[1] == '1';
+        }
+        public static bool CheckPhoneNumber(string PhoneNumber)
+        {
+            System.Text.RegularExpressions.Regex reg = new(@"^0[0-9]{8,9}$");
+            return reg.IsMatch(PhoneNumber);
+        }
+    }
+    public static class User
+    {
+        public static string GetUserEmail(ClaimsPrincipal User)
+        {
+            return User.Claims.Where(c => c.Type == ClaimTypes.Email).Select(c => c.Value).SingleOrDefault();
+        }
     }
 }

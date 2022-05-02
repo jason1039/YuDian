@@ -16323,6 +16323,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "e:\\GitHub\\YuDian\\Views\\SetGroup\\Add.cshtml",
+      "TargetPath": "Views\\SetGroup\\Add.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "e:\\GitHub\\YuDian\\Views\\Invite\\Index.cshtml",
       "TargetPath": "Views\\Invite\\Index.cshtml",
       "FileKind": "mvc"
@@ -16333,8 +16338,18 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "e:\\GitHub\\YuDian\\Views\\SignIn\\SignUp.cshtml",
+      "TargetPath": "Views\\SignIn\\SignUp.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "e:\\GitHub\\YuDian\\Views\\Shared\\_Layout.cshtml",
       "TargetPath": "Views\\Shared\\_Layout.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "e:\\GitHub\\YuDian\\Views\\SetGroup\\Index.cshtml",
+      "TargetPath": "Views\\SetGroup\\Index.cshtml",
       "FileKind": "mvc"
     },
     {

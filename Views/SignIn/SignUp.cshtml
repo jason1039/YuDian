@@ -1,0 +1,74 @@
+@{
+    ViewData["Title"] = "註冊帳號";
+}
+
+<form method="post" asp-controller="SignIn" asp-action="SignUp">
+    <h2><span class="badge bg-secondary">註冊帳號</span></h2>
+    <div class="mb-3">
+        <label for="UserName" class="form-label">姓名</label>
+        <input type="text" class="form-control" id="UserName" readonly value=@ViewBag.Name>
+    </div>
+    <div class="mb-3">
+        <label for="UserEmail" class="form-label">Email</label>
+        <input type="email" class="form-control" id="UserEmail" aria-describedby="emailHelp" value=@ViewBag.Email
+            readonly>
+        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+    </div>
+    <div class="mb-3">
+        <label for="UserID" class="form-label">身分證字號</label>
+        <input type="text" class="form-control is-invalid" id="UserID" aria-describedby="IdHelp" name="UserID"
+            aria-describedby="UserIDFeedback" required>
+        <div id="IdHelp" class="form-text">We'll never share your identity number with anyone else.</div>
+        <div id="UserIDFeedback" class="invalid-feedback">
+            Please provide a valid city.
+        </div>
+    </div>
+    <div class="mb-3">
+        <label for="UserPhone" class="form-label">電話</label>
+        <input type="tel" class="form-control" id="UserPhone" name="UserPhone">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+@section scripts{
+<script type="text/javascript">
+    $(document).ready(() => {
+        console.log($('form').validator());
+        let a = false, b = false;
+        $("#UserID").blur(checkIdentity);
+        $("#UserPhone").blur(checkPhone);
+        function checkIdentity(item) {
+            let identity = $(item.target).val();
+            if (!identity.match(/^[A-Z][1|2][0-9]{8}$/).length) {
+                SetInvalid(true, $(item.target), a);
+                return;
+            }
+
+            let compareTable = [10, 11, 12, 13, 14, 15, 16, 17, 34, 18, 19, 20, 21, 22, 35, 23, 24, 25, 26, 27, 28, 29, 32, 30, 31, 33];
+
+            let temp = 0;
+            temp += parseInt(compareTable[identity.charCodeAt(0) - 65] / 10);
+            temp += (compareTable[identity.charCodeAt(0) - 65] % 10) * 9;
+            for (let i = 1; i < 9; i++) {
+                temp += (9 - i) * parseInt(identity[i]);
+            }
+            SetInvalid((temp += parseInt(identity[9])) % 10 != 0, $(item.target), a);
+        }
+        function SetInvalid(bool, jqueryItem, ReportMessage) {
+            if (bool) {
+                if (!jqueryItem.hasClass("invalid")) {
+                    jqueryItem.addClass("invalid");
+                    jqueryItem[0].SetInvalid();
+                }
+            }
+            else {
+                jqueryItem.removeClass("invalid");
+            }
+            jqueryItem.prop('disabled', a && b);
+        }
+        function checkPhone(item) {
+            let phone = $(item.target).val();
+            SetInvalid(!phone.match(/0[0-9]{8,9}/)?.length, $(item.target), b);
+        }
+    });
+</script>
+}

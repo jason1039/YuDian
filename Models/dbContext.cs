@@ -16,6 +16,7 @@ public class MainContext : DbContext
     private DbSet<Roles> _Roles { get; set; }
     private DbSet<Features> _Features { get; set; }
     private DbSet<PageList> _PageList { get; set; }
+    private DbSet<GroupsName> _GroupsName { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<SystemUser>().ToTable("SystemUser");
@@ -120,5 +121,21 @@ public class MainContext : DbContext
         SqlParameter _SystemUserNumber = new("@iSystemUserNumber", iSystemUserNumber);
         SystemUser user = this.SystemUser.FromSqlRaw("Exec sp_AddSystemUser @iSystemUserID, @iSystemUserEmail, @iSystemUserSex, @iSystemUserNumber", _SystemUserID, _SystemUserEmail, _SystemUserSex, _SystemUserNumber).ToList().First();
         return user;
+    }
+    public bool sp_HasUserInvited(string iSystemUserEmail)
+    {
+        SqlParameter _SystemUserEmail = new("@iSystemUserEmail", iSystemUserEmail);
+        return this.UserInvite.FromSqlRaw("Exec sp_GetUserInvite @iSystemUserEmail", _SystemUserEmail).ToList().Count() == 1;
+    }
+    public UserInvite sp_GetUserInvite(string iSystemUserEmail)
+    {
+        SqlParameter _SystemUserEmail = new("@iSystemUserEmail", iSystemUserEmail);
+        UserInvite user = this.UserInvite.FromSqlRaw("Exec sp_GetUserInvite @iSystemUserEmail", _SystemUserEmail).ToList().First();
+        return user;
+    }
+    public List<GroupsName> sp_GetGroupList()
+    {
+        List<GroupsName> result = this._GroupsName.FromSqlRaw("Exec sp_GetGroupList").ToList();
+        return result;
     }
 }

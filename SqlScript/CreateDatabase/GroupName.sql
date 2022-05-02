@@ -1,4 +1,4 @@
-Create Table GroupName
+Create Table GroupsName
 (
     GroupID Int Identity(1,1) Not Null,
     GroupName Nvarchar(20) Not Null,

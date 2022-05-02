@@ -16,3 +16,9 @@ Insert Into FeaturesName
     (FeatureName, MainController, MainAction)
 Values
     ('檢視邀請狀態', 'Invite', 'Index')
+Insert Into FeaturesName
+    (FeatureName, MainController, MainAction)
+Values('檢視群組列表', 'SetGroup', 'Index')
+Insert Into FeaturesName
+    (FeatureName, MainController, MainAction)
+Values('新增群組', 'SetGroup', 'Add')

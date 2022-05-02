@@ -1,0 +1,21 @@
+<form>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">群組名稱</th>
+                <th scope="col">編輯</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var row in ViewBag.GroupList)
+            {
+                <tr>
+                    <th scope="row">@row.Seq</th>
+                    <td>@row.GroupName</td>
+                    <td>編輯</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</form>

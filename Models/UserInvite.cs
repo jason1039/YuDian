@@ -12,4 +12,5 @@ public class UserInvite
     [Required]
     [DataType(DataType.EmailAddress)]
     public string InviteEmail { get; set; }
+    public string InviteName { get; set; }
 }

@@ -22,3 +22,11 @@ Insert Into FeatureRoles
     (FeatureID, RoleStr)
 Values
     (2, 'Invite.Index')
+Insert Into FeatureRoles
+    (FeatureID, RoleStr)
+Values
+    (3, 'SetGroup.Index')
+Insert Into FeatureRoles
+    (FeatureID, RoleStr)
+Values
+    (3, 'SetGroup.Add')

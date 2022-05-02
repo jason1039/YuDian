@@ -7,8 +7,8 @@ BEGIN
     From FeatureRoles
         Left Join FeaturesName On FeatureRoles.FeatureID = FeaturesName.FeatureID
         Left Join GroupWithFeature On FeaturesName.FeatureID = GroupWithFeature.FeatureID
-        Left Join GroupName On GroupWithFeature.GroupID = GroupName.GroupID
-        Left Join SystemUserWithGroup On GroupName.GroupID = SystemUserWithGroup.GroupID
+        Left Join GroupsName On GroupWithFeature.GroupID = GroupsName.GroupID
+        Left Join SystemUserWithGroup On GroupsName.GroupID = SystemUserWithGroup.GroupID
         Left Join SystemUser On SystemUserWithGroup.ID = SystemUser.ID
     Where SystemUser.SystemUserEmail = @iSystemUserEmail And FeaturesName.FeatureState = 'U'
     Group By RoleStr
