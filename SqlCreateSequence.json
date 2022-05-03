@@ -1,0 +1,34 @@
+{
+    "Start": "startSql",
+    "CreateTable": [
+        "SystemUser",
+        "UserInvite",
+        "GroupsName",
+        "FeaturesName",
+        "FeatureRoles",
+        "GroupWithFeature",
+        "SystemUserWithFeature",
+        "PageListTitle",
+        "PageList"
+    ],
+    "CreateSP": [
+        "AddSystemUser",
+        "AddUserInvite",
+        "GetFeatures",
+        "GetGroupList",
+        "GetPageList",
+        "GetRoles",
+        "GetSystemUser",
+        "GetUserInvite",
+        "GetUserInviteList"
+    ],
+    "InsertData": [
+        "FeatureRoles",
+        "FeaturesName",
+        "GroupsName",
+        "GroupWithFeature",
+        "PageList",
+        "PageListTitle",
+        "SystemUser"
+    ]
+}

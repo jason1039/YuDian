@@ -1,31 +1,31 @@
-Create Procedure sp_AddSystemUser(
-    @iSystemUserID varchar(10),
-    @iSystemUserEmail varchar(40),
-    @iSystemUserSex bit,
-    @iSystemUserNumber varchar(10)
+CREATE PROCEDURE sp_AddSystemUser(
+    @iSystemUserID VARCHAR(10),
+    @iSystemUserEmail VARCHAR(40),
+    @iSystemUserSex BIT,
+    @iSystemUserNumber VARCHAR(10)
 )
-As
-DECLARE @_SystemUserName varchar(10)
+AS
+DECLARE @_SystemUserName VARCHAR(10)
 
 BEGIN
-    Select @_SystemUserName = InviteName
-    From UserInvite
-    Where InviteEmail = @iSystemUserEmail
+    SELECT @_SystemUserName = InviteName
+    FROM UserInvite
+    WHERE InviteEmail = @iSystemUserEmail
     OPEN SYMMETRIC KEY KeyYuDian DECRYPTION BY CERTIFICATE [CertYuDian]
-    Insert Into SystemUser
+    INSERT INTO SystemUser
         (SystemUserID, SystemUserEmail, SystemUserName, SystemUserSex, SystemUserNumber, AccountState)
-    Values
+    VALUES
         (EncryptByKey(Key_GUID('KeyYuDian'),@iSystemUserID), @iSystemUserEmail, @_SystemUserName, @iSystemUserSex, EncryptByKey(Key_GUID('KeyYuDian'),@iSystemUserNumber), 'U')
 
-    Select CAST(DECRYPTBYKEY(SystemUserID) AS varchar) As 'SystemUserID',
+    SELECT CAST(DECRYPTBYKEY(SystemUserID) AS VARCHAR) AS 'SystemUserID',
         SystemUserEmail,
         SystemUserName,
-        CAST(DECRYPTBYKEY(SystemUserNumber) AS varchar) As 'SystemUserNumber',
+        CAST(DECRYPTBYKEY(SystemUserNumber) AS VARCHAR) AS 'SystemUserNumber',
         SystemUserSex,
         CreateTime,
         AccountState
-    From SystemUser
-    Where SystemUserEmail = @iSystemUserEmail
+    FROM SystemUser
+    WHERE SystemUserEmail = @iSystemUserEmail
     CLOSE ALL SYMMETRIC KEYS
 END
 GO

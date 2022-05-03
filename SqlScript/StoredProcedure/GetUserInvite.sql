@@ -1,10 +1,10 @@
-Create Procedure sp_GetUserInvite(
-    @iSystemEmail varchar(40)
+CREATE PROCEDURE sp_GetUserInvite(
+    @iSystemEmail VARCHAR(40)
 )
-As
+AS
 BEGIN
-    Select *
-    From UserInvite
-    Where InviteEmail = @iSystemEmail
+    SELECT *
+    FROM UserInvite
+    WHERE InviteEmail = @iSystemEmail
 END
 GO

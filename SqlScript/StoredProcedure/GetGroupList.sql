@@ -1,7 +1,7 @@
-Create Procedure sp_GetGroupList
-As
+CREATE PROCEDURE sp_GetGroupList
+AS
 BEGIN
-    Select Row_Number() OVER(Partition by GroupsName.GroupID order by GroupsName.GroupID  ) AS 'Seq', *
-    From GroupsName
+    SELECT Row_Number() OVER(PARTITION BY GroupsName.GroupID ORDER BY GroupsName.GroupID  ) AS 'Seq', *
+    FROM GroupsName
 END
 GO
