@@ -1,0 +1,16 @@
+CREATE DATABASE YuDian
+GO
+Use YuDian
+GO
+-- Create Key
+CREATE MASTER KEY ENCRYPTION BY PASSWORD = '@@YuDianPwd$$';
+GO
+CREATE CERTIFICATE CertYuDian
+  AUTHORIZATION dbo
+  WITH SUBJECT = 'CertYuDian'
+GO
+CREATE SYMMETRIC KEY KeyYuDian
+  AUTHORIZATION dbo
+  WITH ALGORITHM = AES_256           -- 加密演算法
+  ENCRYPTION BY CERTIFICATE CertYuDian   -- 利用 CertDemo Certificate 來加密 KeyDemo Key
+GO

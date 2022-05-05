@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "oLfHKqwwmGT/WVNCEOnLkKAfCfYSMlb6o8eVyI8+6GRp/f4w8bMT3I4fTpfQCEjj/vioKY/+Z5APldO/8sfxiQ==",
+  "dgSpecHash": "2vpT23tFlG1vaT6VmWToSAHCK5mFPW4w/mcdgzRx1p67Bc0vqzqiQwU+fxs60sWgV4KDeMzzpSQMMog9ucBO5A==",
   "success": true,
-  "projectFilePath": "E:\\GitHub\\YuDian\\YuDian.csproj",
+  "projectFilePath": "e:\\GitHub\\YuDian\\YuDian.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\jason\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\jason\\.nuget\\packages\\messagepack\\2.1.152\\messagepack.2.1.152.nupkg.sha512",
