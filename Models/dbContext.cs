@@ -17,6 +17,7 @@ public class MainContext : DbContext
     private DbSet<Features> _Features { get; set; }
     private DbSet<PageList> _PageList { get; set; }
     private DbSet<GroupsName> _GroupsName { get; set; }
+    private DbSet<GroupWithFeature> _GroupWithFeature { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<SystemUser>().ToTable("SystemUser");
@@ -133,9 +134,18 @@ public class MainContext : DbContext
         UserInvite user = this.UserInvite.FromSqlRaw("Exec sp_GetUserInvite @iSystemUserEmail", _SystemUserEmail).ToList().First();
         return user;
     }
-    public List<GroupsName> sp_GetGroupList()
+    public List<GroupsName> sp_GetGroupList(string iSystemUserEmail)
     {
-        List<GroupsName> result = this._GroupsName.FromSqlRaw("Exec sp_GetGroupList").ToList();
+        SqlParameter _SystemUserEmail = new("@iSystemUserEmail", iSystemUserEmail);
+        List<GroupsName> result = this._GroupsName.FromSqlRaw("Exec sp_GetGroupList @iSystemUserEmail", _SystemUserEmail).ToList();
+        return result;
+    }
+    public List<GroupWithFeature> sp_AddGroup(string iGroupName, System.Xml.Linq.XDocument iFeaturesID, string iSystemUserEmail)
+    {
+        SqlParameter _GroupName = new("@iGroupName", iGroupName);
+        SqlParameter _FeaturesID = new("@iFeaturesID", iFeaturesID.ToString());
+        SqlParameter _SystemUserEmail = new("@iSystemUserEmail", iSystemUserEmail);
+        List<GroupWithFeature> result = this._GroupWithFeature.FromSqlRaw("EXEC sp_AddGroup @iGroupName, @iFeaturesID, @iSystemUserEmail", _GroupName, _FeaturesID, _SystemUserEmail).ToList();
         return result;
     }
 }

@@ -16,7 +16,7 @@
     </div>
     <div class="mb-3">
         <label for="UserID" class="form-label">身分證字號</label>
-        <input type="text" class="form-control is-invalid" id="UserID" aria-describedby="IdHelp" name="UserID"
+        <input type="text" class="form-control" id="UserID" aria-describedby="IdHelp" name="UserID"
             aria-describedby="UserIDFeedback" required>
         <div id="IdHelp" class="form-text">We'll never share your identity number with anyone else.</div>
         <div id="UserIDFeedback" class="invalid-feedback">
@@ -32,14 +32,13 @@
 @section scripts{
 <script type="text/javascript">
     $(document).ready(() => {
-        console.log($('form').validator());
-        let a = false, b = false;
         $("#UserID").blur(checkIdentity);
         $("#UserPhone").blur(checkPhone);
         function checkIdentity(item) {
+            SetInvalid($(item.target));
             let identity = $(item.target).val();
-            if (!identity.match(/^[A-Z][1|2][0-9]{8}$/).length) {
-                SetInvalid(true, $(item.target), a);
+            if (!/^[A-Z][1|2][0-9]{8}$/.test(identity)) {
+                SetInvalid($(item.target), "不符合基本規則!");
                 return;
             }
 
@@ -48,26 +47,18 @@
             let temp = 0;
             temp += parseInt(compareTable[identity.charCodeAt(0) - 65] / 10);
             temp += (compareTable[identity.charCodeAt(0) - 65] % 10) * 9;
-            for (let i = 1; i < 9; i++) {
-                temp += (9 - i) * parseInt(identity[i]);
-            }
-            SetInvalid((temp += parseInt(identity[9])) % 10 != 0, $(item.target), a);
+            for (let i = 1; i < 9; i++) temp += (9 - i) * parseInt(identity[i]);
+            SetInvalid($(item.target), (temp += parseInt(identity[9])) % 10 ? "無法通過身分證驗證!" : undefined);
         }
-        function SetInvalid(bool, jqueryItem, ReportMessage) {
-            if (bool) {
-                if (!jqueryItem.hasClass("invalid")) {
-                    jqueryItem.addClass("invalid");
-                    jqueryItem[0].SetInvalid();
-                }
-            }
-            else {
-                jqueryItem.removeClass("invalid");
-            }
-            jqueryItem.prop('disabled', a && b);
-        }
+
         function checkPhone(item) {
             let phone = $(item.target).val();
-            SetInvalid(!phone.match(/0[0-9]{8,9}/)?.length, $(item.target), b);
+            SetInvalid($(item.target), /0[0-9]{8,9}/.test(phone) ? undefined : "不符電話機本規則!");
+        }
+        function SetInvalid(jqueryItem, ReportMessage = "") {
+            if (ReportMessage.length) jqueryItem.addClass("is-invalid").removeClass("is-valid");
+            else jqueryItem.removeClass("is-invalid").addClass("is-valid");
+            jqueryItem[0].setCustomValidity(ReportMessage);
         }
     });
 </script>

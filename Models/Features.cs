@@ -1,9 +1,11 @@
-using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 namespace YuDian.Models;
 
-[Keyless]
 public class Features
 {
+    [Key]
+    public int FeatureID { get; set; }
     public string FeatureName { get; set; }
+
 }

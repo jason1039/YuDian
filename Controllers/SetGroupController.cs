@@ -20,15 +20,36 @@ public class SetGroupController : Controller
     [Authorize(Policy = "SetGroup.Index")]
     public IActionResult Index()
     {
-        ViewBag.GroupList = _context.sp_GetGroupList();
+        string UserEmail = FeaturesFunc.User.GetUserEmail(User);
+        ViewBag.GroupList = _context.sp_GetGroupList(UserEmail);
         return View();
     }
     [HttpGet]
+    [Authorize(Policy = "SetGroup.Add")]
     public IActionResult Add()
     {
         string UserEmail = FeaturesFunc.User.GetUserEmail(User);
         ViewBag.Features = _context.sp_GetFeatures(UserEmail);
         return View();
+    }
+    [HttpPost]
+    [ActionName("Add")]
+    [Authorize(Policy = "SetGroup.AddPost")]
+    public IActionResult AddPost()
+    {
+        string UserEmail = FeaturesFunc.User.GetUserEmail(User);
+        List<Features> features = _context.sp_GetFeatures(FeaturesFunc.User.GetUserEmail(User));
+        List<int> FeaturesID = new();
+
+        foreach (Features feature in features)
+        {
+            Microsoft.Extensions.Primitives.StringValues f = HttpContext.Request.Form[feature.FeatureName];
+            if (f.Count == 1) FeaturesID.Add(feature.FeatureID);
+        }
+        System.Xml.Linq.XDocument doc = new();
+        doc.Add(new System.Xml.Linq.XElement("root", FeaturesID.ToList().Select(x => new System.Xml.Linq.XElement("row", new System.Xml.Linq.XElement("FeatureID", x)))));
+        _context.sp_AddGroup(HttpContext.Request.Form["GroupName"].First(), doc, UserEmail);
+        return Redirect(Url.Action("Index", controller: "SetGroup"));
     }
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()

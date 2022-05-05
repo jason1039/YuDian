@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\GitHub\\YuDian\\YuDian.csproj": {}
+    "e:\\GitHub\\YuDian\\YuDian.csproj": {}
   },
   "projects": {
-    "E:\\GitHub\\YuDian\\YuDian.csproj": {
+    "e:\\GitHub\\YuDian\\YuDian.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\GitHub\\YuDian\\YuDian.csproj",
+        "projectUniqueName": "e:\\GitHub\\YuDian\\YuDian.csproj",
         "projectName": "YuDian",
-        "projectPath": "E:\\GitHub\\YuDian\\YuDian.csproj",
+        "projectPath": "e:\\GitHub\\YuDian\\YuDian.csproj",
         "packagesPath": "C:\\Users\\jason\\.nuget\\packages\\",
-        "outputPath": "E:\\GitHub\\YuDian\\obj\\",
+        "outputPath": "e:\\GitHub\\YuDian\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\jason\\AppData\\Roaming\\NuGet\\NuGet.Config"

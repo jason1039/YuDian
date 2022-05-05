@@ -2,10 +2,10 @@
     ViewData["Title"] = "新增群組";
 }
 
-<form method="post" asp-controller="Invite" asp-action="Add">
+<form method="post" asp-controller="SetGroup" asp-action="Add">
     <div class="mb-3">
         <label for="GroupName" class="form-label">群組名稱</label>
-        <input type="text" class="form-control" id="GroupName" name="GroupName">
+        <input type="text" class="form-control" id="GroupName" name="GroupName" required>
     </div>
     <div class="row">
         @foreach (var item in ViewBag.Features)
