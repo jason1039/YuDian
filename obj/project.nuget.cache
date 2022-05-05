@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "2vpT23tFlG1vaT6VmWToSAHCK5mFPW4w/mcdgzRx1p67Bc0vqzqiQwU+fxs60sWgV4KDeMzzpSQMMog9ucBO5A==",
+  "dgSpecHash": "oLfHKqwwmGT/WVNCEOnLkKAfCfYSMlb6o8eVyI8+6GRp/f4w8bMT3I4fTpfQCEjj/vioKY/+Z5APldO/8sfxiQ==",
   "success": true,
-  "projectFilePath": "e:\\GitHub\\YuDian\\YuDian.csproj",
+  "projectFilePath": "E:\\GitHub\\YuDian\\YuDian.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\jason\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\jason\\.nuget\\packages\\messagepack\\2.1.152\\messagepack.2.1.152.nupkg.sha512",
@@ -178,5 +178,12 @@
     "C:\\Users\\jason\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\jason\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "讀取快取檔案 E:\\GitHub\\YuDian\\obj\\project.nuget.cache 時發生問題: Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }

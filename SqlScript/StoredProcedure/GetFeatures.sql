@@ -1,5 +1,5 @@
-Create Procedure sp_GetFeatures(
-    @iSystemUserEmail varchar(40)
+CREATE PROCEDURE sp_GetFeatures(
+    @iSystemUserEmail VARCHAR(40)
 )
 AS
 BEGIN

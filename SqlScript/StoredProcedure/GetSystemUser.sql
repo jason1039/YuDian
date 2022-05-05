@@ -1,18 +1,18 @@
-Create Procedure sp_GetSystemUser(
-    @iSystemUserEmail Varchar(40)
+CREATE PROCEDURE sp_GetSystemUser(
+    @iSystemUserEmail VARCHAR(40)
 )
-As
+AS
 BEGIN
     OPEN SYMMETRIC KEY KeyYuDian DECRYPTION BY CERTIFICATE [CertYuDian]
-    Select CAST(DECRYPTBYKEY(SystemUserID) AS varchar) As 'SystemUserID',
+    SELECT CAST(DECRYPTBYKEY(SystemUserID) AS VARCHAR) AS 'SystemUserID',
         SystemUserEmail,
         SystemUserName,
-        CAST(DECRYPTBYKEY(SystemUserNumber) AS varchar) As 'SystemUserNumber',
+        CAST(DECRYPTBYKEY(SystemUserNumber) AS VARCHAR) AS 'SystemUserNumber',
         SystemUserSex,
         CreateTime,
         AccountState
-    From SystemUser
-    Where SystemUserEmail = @iSystemUserEmail
+    FROM SystemUser
+    WHERE SystemUserEmail = @iSystemUserEmail
     CLOSE ALL SYMMETRIC KEYS
 END
 GO

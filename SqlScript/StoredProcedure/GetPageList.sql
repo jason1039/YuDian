@@ -1,17 +1,17 @@
 Create Procedure sp_GetPageList(
-    @iSystemUserEmail Varchar(40)
+    @iSystemUserEmail VARCHAR(40)
 )
 As
 BEGIN
-    Select FeaturesName.FeatureName, FeaturesName.MainController, FeaturesName.MainAction, PageList.PageSeq, PageListTitle.TitleName, PageListTitle.TitleSeq
-    From FeaturesName
-        Left Join PageList On FeaturesName.FeatureID = PageList.FeatureID
-        Left Join PageListTitle On PageList.TitleSeq = PageListTitle.TitleSeq
-        Left Join GroupWithFeature On FeaturesName.FeatureID = GroupWithFeature.FeatureID
-        Left Join SystemUserWithGroup On GroupWithFeature.GroupID = SystemUserWithGroup.GroupID
-        Left Join SystemUser On SystemUserWithGroup.ID = SystemUser.ID
-    Where SystemUser.SystemUserEmail = @iSystemUserEmail
-    Group By FeaturesName.FeatureName, FeaturesName.MainController, FeaturesName.MainAction, PageList.PageSeq, PageListTitle.TitleName, PageListTitle.TitleSeq
-    Order by PageListTitle.TitleSeq, PageList.PageSeq
+    SELECT FeaturesName.FeatureName, FeaturesName.MainController, FeaturesName.MainAction, PageList.PageSeq, PageListTitle.TitleName, PageListTitle.TitleSeq
+    FROM FeaturesName
+        LEFT JOIN PageList ON FeaturesName.FeatureID = PageList.FeatureID
+        LEFT JOIN PageListTitle ON PageList.TitleSeq = PageListTitle.TitleSeq
+        LEFT JOIN GroupWithFeature ON FeaturesName.FeatureID = GroupWithFeature.FeatureID
+        LEFT JOIN SystemUserWithGroup ON GroupWithFeature.GroupID = SystemUserWithGroup.GroupID
+        LEFT JOIN SystemUser ON SystemUserWithGroup.ID = SystemUser.ID
+    WHERE SystemUser.SystemUserEmail = @iSystemUserEmail
+    GROUP BY FeaturesName.FeatureName, FeaturesName.MainController, FeaturesName.MainAction, PageList.PageSeq, PageListTitle.TitleName, PageListTitle.TitleSeq
+    ORDER BY PageListTitle.TitleSeq, PageList.PageSeq
 END
 GO

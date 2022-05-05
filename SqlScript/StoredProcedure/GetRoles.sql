@@ -1,16 +1,16 @@
-Create Procedure sp_GetRoles(
-    @iSystemUserEmail varchar(40)
+CREATE PROCEDURE sp_GetRoles(
+    @iSystemUserEmail VARCHAR(40)
 )
 AS
 BEGIN
-    Select RoleStr
-    From FeatureRoles
-        Left Join FeaturesName On FeatureRoles.FeatureID = FeaturesName.FeatureID
-        Left Join GroupWithFeature On FeaturesName.FeatureID = GroupWithFeature.FeatureID
-        Left Join GroupsName On GroupWithFeature.GroupID = GroupsName.GroupID
-        Left Join SystemUserWithGroup On GroupsName.GroupID = SystemUserWithGroup.GroupID
-        Left Join SystemUser On SystemUserWithGroup.ID = SystemUser.ID
-    Where SystemUser.SystemUserEmail = @iSystemUserEmail And FeaturesName.FeatureState = 'U'
-    Group By RoleStr
+    SELECT RoleStr
+    FROM FeatureRoles
+        LEFT JOIN FeaturesName ON FeatureRoles.FeatureID = FeaturesName.FeatureID
+        LEFT JOIN GroupWithFeature ON FeaturesName.FeatureID = GroupWithFeature.FeatureID
+        LEFT JOIN GroupsName ON GroupWithFeature.GroupID = GroupsName.GroupID
+        LEFT JOIN SystemUserWithGroup ON GroupsName.GroupID = SystemUserWithGroup.GroupID
+        LEFT JOIN SystemUser ON SystemUserWithGroup.ID = SystemUser.ID
+    Where SystemUser.SystemUserEmail = @iSystemUserEmail AND FeaturesName.FeatureState = 'U'
+    GROUP BY RoleStr
 END
 GO

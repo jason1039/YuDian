@@ -1,5 +1,5 @@
 {
-  "FilePath": "e:\\GitHub\\YuDian\\YuDian.csproj",
+  "FilePath": "c:\\Users\\000585\\Documents\\YuDian\\YuDian.csproj",
   "Configuration": {
     "ConfigurationName": "MVC-3.0",
     "LanguageVersion": "6.0",
@@ -16298,77 +16298,77 @@
   "RootNamespace": "YuDian",
   "Documents": [
     {
-      "FilePath": "e:\\GitHub\\YuDian\\Views\\Shared\\_ValidationScriptsPartial.cshtml",
-      "TargetPath": "Views\\Shared\\_ValidationScriptsPartial.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "e:\\GitHub\\YuDian\\Views\\Shared\\PageListPartial.cshtml",
+      "FilePath": "c:\\Users\\000585\\Documents\\YuDian\\Views\\Shared\\PageListPartial.cshtml",
       "TargetPath": "Views\\Shared\\PageListPartial.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "e:\\GitHub\\YuDian\\Views\\Shared\\LoginPartial.cshtml",
-      "TargetPath": "Views\\Shared\\LoginPartial.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "e:\\GitHub\\YuDian\\Views\\ERP\\Index.cshtml",
-      "TargetPath": "Views\\ERP\\Index.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "e:\\GitHub\\YuDian\\Views\\_ViewStart.cshtml",
+      "FilePath": "c:\\Users\\000585\\Documents\\YuDian\\Views\\_ViewStart.cshtml",
       "TargetPath": "Views\\_ViewStart.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "e:\\GitHub\\YuDian\\Views\\SetGroup\\Add.cshtml",
-      "TargetPath": "Views\\SetGroup\\Add.cshtml",
+      "FilePath": "c:\\Users\\000585\\Documents\\YuDian\\Views\\Shared\\_ValidationScriptsPartial.cshtml",
+      "TargetPath": "Views\\Shared\\_ValidationScriptsPartial.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "e:\\GitHub\\YuDian\\Views\\Invite\\Index.cshtml",
-      "TargetPath": "Views\\Invite\\Index.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "e:\\GitHub\\YuDian\\Views\\Home\\Privacy.cshtml",
-      "TargetPath": "Views\\Home\\Privacy.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "e:\\GitHub\\YuDian\\Views\\SignIn\\SignUp.cshtml",
-      "TargetPath": "Views\\SignIn\\SignUp.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "e:\\GitHub\\YuDian\\Views\\Shared\\_Layout.cshtml",
-      "TargetPath": "Views\\Shared\\_Layout.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "e:\\GitHub\\YuDian\\Views\\SetGroup\\Index.cshtml",
-      "TargetPath": "Views\\SetGroup\\Index.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "e:\\GitHub\\YuDian\\Views\\Shared\\Error.cshtml",
-      "TargetPath": "Views\\Shared\\Error.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "e:\\GitHub\\YuDian\\Views\\_ViewImports.cshtml",
+      "FilePath": "c:\\Users\\000585\\Documents\\YuDian\\Views\\_ViewImports.cshtml",
       "TargetPath": "Views\\_ViewImports.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "e:\\GitHub\\YuDian\\Views\\Home\\Index.cshtml",
+      "FilePath": "c:\\Users\\000585\\Documents\\YuDian\\Views\\ERP\\Index.cshtml",
+      "TargetPath": "Views\\ERP\\Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\000585\\Documents\\YuDian\\Views\\SignIn\\SignUp.cshtml",
+      "TargetPath": "Views\\SignIn\\SignUp.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\000585\\Documents\\YuDian\\Views\\Shared\\Error.cshtml",
+      "TargetPath": "Views\\Shared\\Error.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\000585\\Documents\\YuDian\\Views\\Invite\\Index.cshtml",
+      "TargetPath": "Views\\Invite\\Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\000585\\Documents\\YuDian\\Views\\SetGroup\\Index.cshtml",
+      "TargetPath": "Views\\SetGroup\\Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\000585\\Documents\\YuDian\\Views\\Shared\\LoginPartial.cshtml",
+      "TargetPath": "Views\\Shared\\LoginPartial.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\000585\\Documents\\YuDian\\Views\\Home\\Privacy.cshtml",
+      "TargetPath": "Views\\Home\\Privacy.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\000585\\Documents\\YuDian\\Views\\Home\\Index.cshtml",
       "TargetPath": "Views\\Home\\Index.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "e:\\GitHub\\YuDian\\Views\\Invite\\Add.cshtml",
+      "FilePath": "c:\\Users\\000585\\Documents\\YuDian\\Views\\SetGroup\\Add.cshtml",
+      "TargetPath": "Views\\SetGroup\\Add.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\000585\\Documents\\YuDian\\Views\\Shared\\_Layout.cshtml",
+      "TargetPath": "Views\\Shared\\_Layout.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\000585\\Documents\\YuDian\\Views\\Invite\\Add.cshtml",
       "TargetPath": "Views\\Invite\\Add.cshtml",
       "FileKind": "mvc"
     }

@@ -1,11 +1,11 @@
-Create Procedure sp_GetUserInviteList
-As
+CREATE PROCEDURE sp_GetUserInviteList
+AS
 BEGIN
-    Select Row_Number() OVER(Partition by UserInvite.InviteName order by UserInvite.InviteName ) AS 'Seq',
+    SELECT Row_Number() OVER(PARTITION BY UserInvite.InviteName ORDER BY UserInvite.InviteName ) AS 'Seq',
         UserInvite.InviteName,
         UserInvite.InviteEmail,
-        IsNull(SystemUser.SystemUserEmail,0) As 'Completed'
-    From UserInvite
-        Left Join SystemUser On SystemUser.SystemUserEmail = UserInvite.InviteEmail
+        IsNull(SystemUser.SystemUserEmail,0) AS 'Completed'
+    FROM UserInvite
+        LEFT JOIN SystemUser ON SystemUser.SystemUserEmail = UserInvite.InviteEmail
 END
 GO
