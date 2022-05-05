@@ -10,7 +10,7 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddDbContext<MainContext>(options =>
-    options.UseSqlServer("Server=PC585;Database=YuDian;Trusted_Connection=True;"));
+    options.UseSqlServer("Server=DESKTOP-UG4OT54\\SQLEXPRESS;Database=YuDian;Trusted_Connection=True;"));
 builder.Services.AddSession(options =>
             {
                 options.Cookie.Name = ".AdventureWorks.Session";

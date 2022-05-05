@@ -17,6 +17,7 @@ public partial class MainContext : DbContext
     private DbSet<Features> _Features { get; set; }
     private DbSet<PageList> _PageList { get; set; }
     private DbSet<GroupsName> _GroupsName { get; set; }
+    private DbSet<GroupWithFeature> _GroupWithFeature { get; set; }
     // protected override void OnModelCreating(ModelBuilder modelBuilder)
     // {
     //     modelBuilder.Entity<SystemUser>().ToTable("SystemUser");

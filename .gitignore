@@ -34,3 +34,4 @@ obj/Debug/net6.0/YuDian.genruntimeconfig.cache
 obj/Debug/net6.0/YuDian.pdb
 obj/Debug/net6.0/ref/YuDian.dll
 bin/Debug/net6.0/YuDian.deps.json
+Program.cs
