@@ -124,12 +124,33 @@ public partial class MainContext : DbContext
         List<GroupsName> result = this._GroupsName.FromSqlRaw("Exec sp_GetGroupList @iSystemUserEmail", _SystemUserEmail).ToList();
         return result;
     }
-    public List<GroupWithFeature> sp_AddGroup(string iGroupName, System.Xml.Linq.XDocument iFeaturesID, string iSystemUserEmail)
+    public List<GroupsName> sp_GetEditGroupList(string iSystemUserEmail)
+    {
+        SqlParameter _SystemUserEmail = new("@iSystemUserEmail", iSystemUserEmail);
+        List<GroupsName> result = this._GroupsName.FromSqlRaw("Exec sp_GetEditGroupList @iSystemUserEmail", _SystemUserEmail).ToList();
+        return result;
+    }
+    public List<Features> sp_GetGroupFeatures(string iSystemUserEmail, int iGroupID)
+    {
+        try
+        {
+            SqlParameter _SystemUserEmail = new("@iSystemUserEmail", iSystemUserEmail);
+            SqlParameter _GroupID = new("@iGroupID", iGroupID);
+            List<Features> res = this._Features.FromSqlRaw("Exec sp_GetGroupFeatures @iSystemUserEmail, @iGroupID", _SystemUserEmail, _GroupID).ToList();
+            return res;
+        }
+        catch (Exception e)
+        {
+            throw e;
+        }
+    }
+    public List<GroupWithFeature> sp_AddGroup(string iGroupName, System.Xml.Linq.XDocument iFeaturesID, string iSystemUserEmail, int ParentGroupID)
     {
         SqlParameter _GroupName = new("@iGroupName", iGroupName);
         SqlParameter _FeaturesID = new("@iFeaturesID", iFeaturesID.ToString());
         SqlParameter _SystemUserEmail = new("@iSystemUserEmail", iSystemUserEmail);
-        List<GroupWithFeature> result = this._GroupWithFeature.FromSqlRaw("EXEC sp_AddGroup @iGroupName, @iFeaturesID, @iSystemUserEmail", _GroupName, _FeaturesID, _SystemUserEmail).ToList();
+        SqlParameter _ParentGroupID = new("@iParentGroupID", ParentGroupID);
+        List<GroupWithFeature> result = this._GroupWithFeature.FromSqlRaw("EXEC sp_AddGroup @iGroupName, @iFeaturesID, @iSystemUserEmail, @iParentGroupID", _GroupName, _FeaturesID, _SystemUserEmail, _ParentGroupID).ToList();
         return result;
     }
 }

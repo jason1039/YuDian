@@ -3,13 +3,13 @@ CREATE PROCEDURE sp_GetFeatures(
 )
 AS
 BEGIN
-    Select FeatureName, FeaturesName.FeatureID
-    From FeaturesName
-        Left Join GroupWithFeature On FeaturesName.FeatureID = GroupWithFeature.FeatureID
-        Left Join GroupsName On GroupWithFeature.GroupID = GroupsName.GroupID
-        Left Join SystemUserWithGroup On GroupsName.GroupID = SystemUserWithGroup.GroupID
-        Left Join SystemUser On SystemUserWithGroup.ID = SystemUser.ID
-    Where SystemUser.SystemUserEmail = @iSystemUserEmail
-    Group By FeatureName, FeaturesName.FeatureID
+    SELECT FeatureName, FeaturesName.FeatureID
+    FROM FeaturesName
+        LEFT JOIN GroupWithFeature ON FeaturesName.FeatureID = GroupWithFeature.FeatureID
+        LEFT JOIN GroupsName ON GroupWithFeature.GroupID = GroupsName.GroupID
+        LEFT JOIN SystemUserWithGroup ON GroupsName.GroupID = SystemUserWithGroup.GroupID
+        LEFT JOIN SystemUser ON SystemUserWithGroup.ID = SystemUser.ID
+    WHERE SystemUser.SystemUserEmail = @iSystemUserEmail
+    GROUP BY FeatureName, FeaturesName.FeatureID
 END
 GO

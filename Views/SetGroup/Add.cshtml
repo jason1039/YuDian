@@ -6,8 +6,15 @@
     <div class="mb-3">
         <label for="GroupName" class="form-label">群組名稱</label>
         <input type="text" class="form-control" id="GroupName" name="GroupName" required>
+        <label for="ParnetGroupID" class="form-label">父層權限</label>
+        <select id="ParnetGroupID" name="ParentGroupID" class="selectpicker form-control" data-live-search="true">
+            @foreach (var item in ViewBag.ParentList)
+            {
+                <option value=@item.GroupID>@item.GroupName</option>
+            }
+        </select>
     </div>
-    <div class="row">
+    <div class="row" id="Features">
         @foreach (var item in ViewBag.Features)
         {
             <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6">
@@ -21,3 +28,43 @@
     <br />
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
+@section Scripts{
+<script type="text/javascript">
+    $(document).ready(() => {
+        $(`#ParnetGroupID`).change(function () {
+            changeFeatures(this.value);
+        });
+        function changeFeatures(groupID) {
+            $.ajax({
+                url: `/SetGroup/Get_Features/${groupID}`,
+                method: "POST",
+                success: (data) => {
+                    $(`#Features`).children().remove();
+                    data.value.forEach(i => {
+                        createFeatureItem(i);
+                    });
+                },
+                error: console.log
+            });
+        }
+        function createFeatureItem(item) {
+            let outerBag = $(document.createElement(`div`)).attr({
+                class: "col-xxl-2 col-xl-3 col-lg-4 col-md-6"
+            });
+            let featureSwitch = $(document.createElement(`div`)).attr({
+                class: "form-check form-switch"
+            }).append($(document.createElement(`input`)).attr({
+                type: "checkbox",
+                id: item.featureName,
+                name: item.featureName,
+                class: "form-check-input"
+            })).append($(document.createElement(`label`)).attr({
+                class: "form-check-label",
+                for: item.featureName,
+            }).html(item.featureName)).appendTo(outerBag);
+            $(outerBag).appendTo($(`#Features`));
+        }
+        changeFeatures($(`#ParnetGroupID`).val());
+    });
+</script>
+}

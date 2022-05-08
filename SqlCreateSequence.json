@@ -23,12 +23,12 @@
         "GetUserInviteList"
     ],
     "InsertData": [
-        "FeatureRoles",
         "FeaturesName",
-        "GroupsName",
+        "FeatureRoles",
         "GroupWithFeature",
-        "PageList",
         "PageListTitle",
-        "SystemUser"
+        "PageList",
+        "SystemUser",
+        "SystemUserWithGroup"
     ]
 }

@@ -29,7 +29,7 @@ public class InviteController : Controller
     [Authorize(Policy = "Invite.AddPost")]
     [HttpPost]
     [ActionName("Add")]
-    public async Task<IActionResult> AddPost([FromForm] AddPostData formData)
+    public IActionResult AddPost([FromForm] AddPostData formData)
     {
         string InviterEmail = User.Claims.Where(c => c.Type == ClaimTypes.Email).Select(c => c.Value).SingleOrDefault();
         _context.sp_AddUserInvite(InviterEmail, formData.InviteEmail, formData.InviteName);

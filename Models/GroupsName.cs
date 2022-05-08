@@ -5,4 +5,5 @@ public class GroupsName
     [Key]
     public int GroupID { get; set; }
     public string GroupName { get; set; }
+    public int ParentGroupID { get; set; }
 }

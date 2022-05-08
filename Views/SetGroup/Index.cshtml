@@ -13,7 +13,9 @@
                 <tr>
                     <th scope="row">@row.Seq</th>
                     <td>@row.GroupName</td>
-                    <td>編輯</td>
+                    <td>
+                        <a asp-controller="SetGroup" asp-action="Edit" asp-route-key=@row.GroupID>編輯</a>
+                    </td>
                 </tr>
             }
         </tbody>

@@ -117,13 +117,13 @@ namespace YuDian.FeaturesFunc
         private static string[] GetControls(string path)
         {
             List<string> result = new();
-            System.Text.RegularExpressions.Regex _reg = new(@"public\s(async\sTask<)?IActionResult(>)?\s[A-Za-z_]*\([^\)]*\)");
+            System.Text.RegularExpressions.Regex _reg = new(@"public\s(async\sTask<)?(IActionResult|JsonResult|EmptyResult)(>)?\s[A-Za-z_]*\([^\)]*\)");
             string FileContent = System.IO.File.ReadAllText(path);
             System.Text.RegularExpressions.MatchCollection Lines = _reg.Matches(FileContent);
             foreach (var i in Lines)
             {
-                System.Text.RegularExpressions.Regex __reg = new(@"(public\s)(async\sTask<)?(IActionResult)(>)?(\s)([A-Za-z_]*)(\([^\)]*\))");
-                string pattern = @"(public\s)(async\sTask<)?(IActionResult)(>)?(\s)([A-Za-z_]*)(\([^\)]*\))";
+                System.Text.RegularExpressions.Regex __reg = new(@"(public\s)(async\sTask<)?(IActionResult|JsonResult|EmptyResult)(>)?(\s)([A-Za-z_]*)(\([^\)]*\))");
+                string pattern = @"(public\s)(async\sTask<)?(IActionResult|JsonResult|EmptyResult)(>)?(\s)([A-Za-z_]*)(\([^\)]*\))";
                 string replacement = "$6";
                 string result_str = System.Text.RegularExpressions.Regex.Replace(i.ToString(), pattern, replacement);
                 result.Add(result_str);
@@ -160,9 +160,36 @@ namespace YuDian.FeaturesFunc
     }
     public static class User
     {
+        private static string Keyword = "$@!::::$@!";
         public static string GetUserEmail(ClaimsPrincipal User)
         {
             return User.Claims.Where(c => c.Type == ClaimTypes.Email).Select(c => c.Value).SingleOrDefault();
+        }
+        private static string _Encryption(string UserEmail, string EncryptionString)
+        {
+            string result = string.Empty;
+            for (int i = 0; i < EncryptionString.Length; i++)
+                result += (char)((int)EncryptionString[i] ^ (int)UserEmail[i % UserEmail.Length]);
+            return result;
+        }
+        public static string Encryption(ClaimsPrincipal User, string EncryptionString)
+        {
+            string UserEmail = GetUserEmail(User);
+
+            EncryptionString = $"{DateTime.Now.ToString("yyyyMMddHHmmssffff")}{Keyword}" + EncryptionString + Keyword;
+            while (EncryptionString.Length < 40)
+                EncryptionString += ":A0";
+            string result = _Encryption(UserEmail, EncryptionString);
+
+            return result;
+        }
+        public static string Decryption(ClaimsPrincipal User, string DecryptionString)
+        {
+            string UserEmail = GetUserEmail(User);
+            string temp = _Encryption(UserEmail, DecryptionString);
+
+            string result = temp.Split(Keyword)[1];
+            return result;
         }
     }
 }

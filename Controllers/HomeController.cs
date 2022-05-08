@@ -22,7 +22,7 @@ public class HomeController : Controller
         return View();
     }
 
-    public async Task<IActionResult> Privacy()
+    public IActionResult Privacy()
     {
         return View();
     }

@@ -68,7 +68,7 @@ public class SignInController : Controller
     }
     [AllowAnonymous]
     [HttpGet]
-    public async Task<IActionResult> SignUp()
+    public IActionResult SignUp()
     {
         if (HttpContext.Session.GetString("SignUpData") != string.Empty)
         {
@@ -83,7 +83,7 @@ public class SignInController : Controller
     [AllowAnonymous]
     [HttpPost]
     [ActionName("SignUp")]
-    public async Task<IActionResult> SignUpPost([FromForm] SignUpData signUpData)
+    public IActionResult SignUpPost([FromForm] SignUpData signUpData)
     {
         if (HttpContext.Session.GetString("SignUpData") != string.Empty)
         {
