@@ -63,10 +63,17 @@ public class SetGroupController : Controller
         _context.sp_AddGroup(HttpContext.Request.Form["GroupName"].First(), doc, UserEmail, ParentGroupID);
         return Redirect(Url.Action("Index", controller: "SetGroup"));
     }
+    [HttpGet]
     [Authorize(Policy = "SetGroup.Edit")]
     public IActionResult Edit(int GroupID)
     {
         return View();
+    }
+    [HttpPost]
+    [ActionName("Edit")]
+    public IActionResult EditPost()
+    {
+        return Redirect(Url.Action("Index", controller: "SetGroup"));
     }
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()

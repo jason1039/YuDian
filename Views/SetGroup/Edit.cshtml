@@ -1,0 +1,17 @@
+@{
+    ViewData["Title"] = "編輯群組";
+}
+<form method="post" asp-controller="SetGroup" asp-action="Edit">
+    <div class="mb-3">
+        <label for="GroupName" class="form-label">群組名稱</label>
+        <input type="text" class="form-control" id="GroupName" name="GroupName" readonly>
+        <label for="ParnetGroupID" class="form-label">父層權限</label>
+        <input type="text" class="form-control" id="ParnetGroupID" name="ParnetGroupID" readonly>
+    </div>
+    <div class="row" id="Features"></div>
+    <br />
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+@section Scripts{
+
+}
