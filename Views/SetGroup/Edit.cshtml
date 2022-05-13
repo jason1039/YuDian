@@ -4,11 +4,29 @@
 <form method="post" asp-controller="SetGroup" asp-action="Edit">
     <div class="mb-3">
         <label for="GroupName" class="form-label">群組名稱</label>
-        <input type="text" class="form-control" id="GroupName" name="GroupName" readonly>
+        <input type="text" class="form-control" id="GroupName" name="GroupName" readonly value=@ViewBag.GroupName>
         <label for="ParnetGroupID" class="form-label">父層權限</label>
-        <input type="text" class="form-control" id="ParnetGroupID" name="ParnetGroupID" readonly>
+        <input type="text" class="form-control" id="ParnetGroupID" name="ParnetGroupID" readonly
+            value=@ViewBag.ParentName>
     </div>
-    <div class="row" id="Features"></div>
+    <div class="row" id="Features">
+        @foreach (var item in ViewBag.Features)
+        {
+            <div class="col-xxl-2 col-xl-3 col-lg-4 col-md-6">
+                <div class="form-check form-switch">
+                    @if (@item.Choosed)
+                    {
+                        <input type="checkbox" class="form-check-input" id=@item.FeatureName name=@item.FeatureName checked />
+                    }
+                    else
+                    {
+                        <input type="checkbox" class="form-check-input" id=@item.FeatureName name=@item.FeatureName />
+                    }
+                    <label class="form-check-label" for=@item.FeatureName>@item.FeatureName</label>
+                </div>
+            </div>
+        }
+    </div>
     <br />
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>

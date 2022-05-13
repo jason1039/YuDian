@@ -130,6 +130,29 @@ public partial class MainContext : DbContext
         List<GroupsName> result = this._GroupsName.FromSqlRaw("Exec sp_GetEditGroupList @iSystemUserEmail", _SystemUserEmail).ToList();
         return result;
     }
+    public EditGroup sp_GetEditGroup(string SystemUserEmail, int GroupID)
+    {
+        SqlParameter iSystemUserEmail = new("@iSystemUserEmail", SystemUserEmail);
+        SqlParameter iGroupName = new("@iGroupName", System.Data.SqlDbType.NVarChar, 20);
+        iGroupName.Direction = System.Data.ParameterDirection.Output;
+        SqlParameter iParentName = new("@iParentName", System.Data.SqlDbType.NVarChar, 20);
+        iParentName.Direction = System.Data.ParameterDirection.Output;
+        SqlParameter iGroupID = new("@iGroupID", GroupID);
+        // dynamic test = this._EditFeatures.FromSqlRaw("Exec sp_GetEditGroup @iSystemUserEmail, @iGroupID, @iGroupName OUTPUT, @iParentName OUTPUT", iSystemUserEmail, iGroupID, iGroupName, iParentName);
+        List<EditFeatures> res = this._EditFeatures.FromSqlRaw("Exec sp_GetEditGroup @iSystemUserEmail, @iGroupID, @iGroupName OUTPUT, @iParentName OUTPUT", iSystemUserEmail, iGroupID, iGroupName, iParentName).ToList();
+        EditGroup result = new();
+        result.GroupName = iGroupName.Value.ToString();
+        result.ParentName = iParentName.Value.ToString();
+        result.Features = res;
+        return result;
+    }
+    public void sp_EditGroup(string SystemUserEmail, int GroupID, System.Xml.Linq.XDocument iFeaturesID)
+    {
+        SqlParameter _GroupID = new("@iGroupID", GroupID);
+        SqlParameter _SystemUserEmail = new("@iSystemUserEmail", SystemUserEmail);
+        SqlParameter _FeaturesID = new("@iFeaturesID", iFeaturesID.ToString());
+        this._GroupWithFeature.FromSqlRaw("Exec sp_EditGroup @iGroupID, @iSystemUserEmail, @iFeaturesID", _GroupID, _SystemUserEmail, _FeaturesID).ToList();
+    }
     public List<Features> sp_GetGroupFeatures(string iSystemUserEmail, int iGroupID)
     {
         try

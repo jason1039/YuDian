@@ -14,4 +14,8 @@ INSERT INTO GroupWithFeature
     (GroupID, FeatureID)
 VALUES
     (1, 4)
+INSERT INTO GroupWithFeature
+    (GroupID, FeatureID)
+VALUES
+    (1, 5)
 GO

@@ -65,14 +65,35 @@ public class SetGroupController : Controller
     }
     [HttpGet]
     [Authorize(Policy = "SetGroup.Edit")]
-    public IActionResult Edit(int GroupID)
+    [Route("SetGroup/Edit/{key}")]
+    public IActionResult Edit(int key)
     {
+        string UserEmail = FeaturesFunc.User.GetUserEmail(User);
+        EditGroup data = _context.sp_GetEditGroup(UserEmail, key);
+        ViewBag.ParentName = data.ParentName;
+        ViewBag.GroupName = data.GroupName;
+        ViewBag.Features = data.Features;
         return View();
     }
     [HttpPost]
+    [Authorize(Policy = "SetGroup.EditPost")]
     [ActionName("Edit")]
-    public IActionResult EditPost()
+    [Route("SetGroup/Edit/{key}")]
+    public IActionResult EditPost(int key)
     {
+        string UserEmail = FeaturesFunc.User.GetUserEmail(User);
+        List<Features> features = _context.sp_GetFeatures(FeaturesFunc.User.GetUserEmail(User));
+        List<int> FeaturesID = new();
+        foreach (Features feature in features)
+        {
+            Microsoft.Extensions.Primitives.StringValues f = HttpContext.Request.Form[feature.FeatureName];
+            if (f.Count == 1) FeaturesID.Add(feature.FeatureID);
+        }
+        System.Xml.Linq.XDocument doc = new();
+        doc.Add(new System.Xml.Linq.XElement("root", FeaturesID.ToList().Select(x => new System.Xml.Linq.XElement("row", new System.Xml.Linq.XElement("FeatureID", x)))));
+        _context.sp_EditGroup(UserEmail, key, doc);
+        // _context.sp_AddGroup(HttpContext.Request.Form["GroupName"].First(), doc, UserEmail, ParentGroupID);
+
         return Redirect(Url.Action("Index", controller: "SetGroup"));
     }
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

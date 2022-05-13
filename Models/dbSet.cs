@@ -15,6 +15,7 @@ public partial class MainContext : DbContext
     private DbSet<InviteState> _InviteState { get; set; }
     private DbSet<Roles> _Roles { get; set; }
     private DbSet<Features> _Features { get; set; }
+    private DbSet<EditFeatures> _EditFeatures { get; set; }
     private DbSet<PageList> _PageList { get; set; }
     private DbSet<GroupsName> _GroupsName { get; set; }
     private DbSet<GroupWithFeature> _GroupWithFeature { get; set; }

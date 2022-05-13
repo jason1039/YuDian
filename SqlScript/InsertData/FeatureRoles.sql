@@ -25,4 +25,8 @@ VALUES
 INSERT INTO FeatureRoles
     (FeatureID, RoleStr)
 VALUES(4, 'SetGroup.Get_Features')
+INSERT INTO FeatureRoles
+    (FeatureID, RoleStr)
+VALUES(5, 'SetGroup.EditGroupsByGroup')
+
 GO

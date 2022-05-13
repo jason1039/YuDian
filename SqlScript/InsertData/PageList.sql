@@ -14,4 +14,8 @@ INSERT INTO PageList
     (TitleSeq, PageSeq, FeatureID)
 VALUES
     (2, 2, 4)
+INSERT INTO PageList
+    (TitleSeq, PageSeq, FeatureID)
+VALUES
+    (2, 3, 5)
 GO
